@@ -21,18 +21,19 @@ agenda.define('send news indonesia', async () => {
     const news = await NewsApi.v2.topHeadlines({
         country: 'id'
     }).splice(0,4)
-    webhook.send('Dibaca Beritanya')
+    
     webhook.send({
-        content: "KORAN KORAN! \n Ambil ini, tambahlah ilmu pengetahuan"
+        content: "KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",
         embeds: news.articles.map(article => ({
-            url: article.url,
-            thumbnail: {
-                url: article.urlToImage,
-            },
-            title: article.title,
-            description: article.description,
-            timestamp: article.publishedAt
-        }))
+                url: article.url,
+                thumbnail: {
+                    url: article.urlToImage,
+                },
+                title: article.title,
+                description: article.description,
+                timestamp: article.publishedAt
+            })
+        )
     })
 })
 async function run() {
