@@ -36,7 +36,6 @@ agenda.define('send news indonesia', async () => {
 
 
 async function run() {
-    await agenda.purge()
     await agenda.start()
     await agenda.schedule('at 7.00', 'send news indonesia').repeatAt('7.00')
     await agenda.schedule('at 12.00', 'send news indonesia').repeatAt('12.00')
