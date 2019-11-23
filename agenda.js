@@ -14,7 +14,8 @@ const agenda = new Agenda({
     db: {
         address: process.env.MONGO,
         collection: 'jobs'
-    }
+    },
+    processEvery: '30 seconds'
 })
 
 agenda.define('send news indonesia', async () => {
@@ -22,6 +23,7 @@ agenda.define('send news indonesia', async () => {
         country: 'id'
     }).articles.splice(0,4)
     
+    console.log(Date.now())
     webhook.send({
         content: "KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",
         embeds: news.articles.map(article => ({
@@ -43,7 +45,10 @@ async function run() {
     await agenda.create('send news indonesia').repeatAt('20.00').save()
     await webhook.send('NewsHook READY!')
 }
-agenda.processEvery('30 seconds');
+
 agenda.on('ready', () => {
     run()
+})
+(async function () {
+    await agenda.start()
 })
