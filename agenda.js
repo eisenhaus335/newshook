@@ -38,11 +38,10 @@ agenda.define('send news indonesia', async () => {
 
 async function run() {
     await agenda.start()
-    const newsReport = agenda.create('send news indonesia')
-    await newsReport.repeatAt('7:00 am').save()
-    await newsReport.repeatAt('12:00 am').save()
-    await newsReport.repeatAt('4:00 pm').save()
-    await newsReport.repeatAt('8:00 pm').save()
+    await agenda.create('send news indonesia').repeatAt('7.00 am').save()
+    await agenda.create('send news indonesia').repeatAt('12.00 am').save()
+    await agenda.create('send news indonesia').repeatAt('16.00 pm').save()
+    await agenda.create('send news indonesia').repeatAt('20.00 pm').save()
 }
 
 run().catch(error => {
