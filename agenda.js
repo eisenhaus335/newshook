@@ -19,14 +19,14 @@ const agenda = new Agenda({
 })
 
 agenda.define('send news indonesia', async () => {
-    const news = await NewsApi.v2.topHeadlines({
+    const articles = await NewsApi.v2.topHeadlines({
         country: 'id'
-    }).articles.splice(0,4)
+    }).then(news => news.articles.splice(0,4))
     
     console.log(Date.now())
     webhook.send({
         content: "KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",
-        embeds: news.articles.map(article => ({
+        embeds: articles.map(article => ({
                 url: article.url,
                 thumbnail: {
                     url: article.urlToImage,
