@@ -46,9 +46,7 @@ async function run() {
     await webhook.send('NewsHook READY!')
 }
 
-agenda.on('ready', () => {
-    run()
-})
 (async function () {
     await agenda.start()
+    await run()
 })
