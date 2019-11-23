@@ -39,10 +39,10 @@ async function run() {
 
     const sendnews = agenda.create('send news indonesia')
     await agenda.start()
-    await sendnews.repeatAt('7.00am').save()
-    await sendnews.repeatAt('12.00am').save()
-    await sendnews.repeatAt('5.00pm').save()
-    await sendnews.repeatAt('8.00pm').save()
+    await sendnews.repeatAt('7.00').save()
+    await sendnews.repeatAt('12.00').save()
+    await sendnews.repeatAt('17.00pm').save()
+    await sendnews.repeatAt('20.00pm').save()
     console.log('Everything is done')
 }
 
