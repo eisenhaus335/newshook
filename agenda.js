@@ -18,6 +18,7 @@ async function run() {
     })
     
     agenda.define('send news indonesia', async () => {
+        console.log("job run at "+new Date())
         const news = await NewsApi.v2.topHeadlines({
             country: 'id'
         })
