@@ -35,11 +35,11 @@ agenda.define('send news indonesia', async () => {
     })
 })
 async function run() {
-    agenda.create('send news indonesia').repeatAt('7.00').save()
-    agenda.create('send news indonesia').repeatAt('12.00').save()
-    agenda.create('send news indonesia').repeatAt('16.00').save()
-    agenda.create('send news indonesia').repeatAt('20.00').save()
-    webhook.send('NewsHook READY!')
+    await agenda.create('send news indonesia').repeatAt('7.00').save()
+    await agenda.create('send news indonesia').repeatAt('12.00').save()
+    await agenda.create('send news indonesia').repeatAt('16.00').save()
+    await agenda.create('send news indonesia').repeatAt('20.00').save()
+    await webhook.send('NewsHook READY!')
 }
 agenda.processEvery('30 seconds');
 agenda.on('ready', () => {
