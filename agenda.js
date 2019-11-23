@@ -21,6 +21,7 @@ agenda.define('send news indonesia', async () => {
     const news = await NewsApi.v2.topHeadlines({
         country: 'id'
     })
+    
     webhook.send('Dibaca Beritanya')
     webhook.send({
         embeds: news.articles.map(article => ({
@@ -38,9 +39,8 @@ agenda.define('send news indonesia', async () => {
 (async function() {
     await agenda.start()
     const newsReport = agenda.create('send news indonesia')
-    await newsReport.schedule(new Date(Date.now() + 1000), 'send news indonesia')
-    await newsReport.repeatAt('7.00').save()
-    await newsReport.repeatAt('12.00').save()
-    await newsReport.repeatAt('16.00').save()
-    await newsReport.repeatAt('20.00').save()
+    await newsReport.repeatAt('7:00').save()
+    await newsReport.repeatAt('12:00').save()
+    await newsReport.repeatAt('16:00').save()
+    await newsReport.repeatAt('20:00').save()
 })
