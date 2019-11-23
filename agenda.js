@@ -38,10 +38,10 @@ agenda.define('send news indonesia', async () => {
 async function run() {
     await agenda.purge()
     await agenda.start()
-    await agenda.schedule('at 7.00am', 'send news indonesia').repeatAt('7.00 am')
-    await agenda.schedule('at 12.00am', 'send news indonesia').repeatAt('12.00 am')
-    await agenda.schedule('at 16.00am', 'send news indonesia').repeatAt('16.00 am')
-    await agenda.schedule('at 20.00am', 'send news indonesia').repeatAt('20.00 am')
+    await agenda.schedule('at 7.00', 'send news indonesia').repeatAt('7.00')
+    await agenda.schedule('at 12.00', 'send news indonesia').repeatAt('12.00')
+    await agenda.schedule('at 16.00', 'send news indonesia').repeatAt('16.00')
+    await agenda.schedule('at 20.00am', 'send news indonesia').repeatAt('20.00')
     await webhook.send('Newshook Bekerja')
 }
 
