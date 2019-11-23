@@ -41,8 +41,8 @@ async function run() {
     await agenda.start()
     await sendnews.repeatAt('7.00').save()
     await sendnews.repeatAt('12.00').save()
-    await sendnews.repeatAt('17.00pm').save()
-    await sendnews.repeatAt('20.00pm').save()
+    await sendnews.repeatAt('17.00').save()
+    await sendnews.repeatAt('20.00').save()
     console.log('Everything is done')
 }
 
