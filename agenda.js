@@ -20,7 +20,7 @@ const agenda = new Agenda({
 agenda.define('send news indonesia', async () => {
     const news = await NewsApi.v2.topHeadlines({
         country: 'id'
-    }).splice(0,4)
+    }).articles.splice(0,4)
     
     webhook.send({
         content: "KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",
