@@ -13,7 +13,6 @@ const NewsApi = new api(process.env.NEWSAPI)
 const agenda = new Agenda({
     mongo: {
         address: process.env.MONGO,
-        collection: 'NewsHook'
     }
 })
 
