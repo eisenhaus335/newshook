@@ -37,7 +37,7 @@ agenda.define('send news indonesia', async () => {
             })
         )
     })
-})
+});
 
 (async function (){
     await agenda.start()
