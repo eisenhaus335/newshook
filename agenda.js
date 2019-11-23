@@ -23,6 +23,7 @@ agenda.define('send news indonesia', async () => {
     }).splice(0,4)
     webhook.send('Dibaca Beritanya')
     webhook.send({
+        content: "KORAN KORAN! \n Ambil ini, tambahlah ilmu pengetahuan"
         embeds: news.articles.map(article => ({
             url: article.url,
             thumbnail: {
