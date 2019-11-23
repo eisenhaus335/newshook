@@ -11,7 +11,7 @@ const api = require('newsapi')
 const NewsApi = new api(process.env.NEWSAPI)
 
 const agenda = new Agenda({
-    mongo: {
+    db: {
         address: process.env.MONGO,
     }
 })
