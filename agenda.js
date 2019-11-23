@@ -18,6 +18,7 @@ async function run() {
     })
     
     agenda.define('send news indonesia', async () => {
+        console.log("job run at "+new Date())
         const news = await NewsApi.v2.topHeadlines({
             country: 'id'
         })
@@ -39,10 +40,10 @@ async function run() {
 
     const sendnews = agenda.create('send news indonesia')
     await agenda.start()
-    await sendnews.repeatAt('7.00AM').save()
-    await sendnews.repeatAt('12.00AM').save()
-    await sendnews.repeatAt('5.00PM').save()
-    await sendnews.repeatAt('8.00PM').save()
+    await sendnews.repeatAt('7:00 AM').save()
+    await sendnews.repeatAt('12:00 AM').save()
+    await sendnews.repeatAt('5:00 PM').save()
+    await sendnews.repeatAt('8:00 PM').save()
     console.log('Everything is done')
 }
 
