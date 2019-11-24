@@ -2,42 +2,68 @@ const agenda = require('../agenda')
 const Router = require('koa-router')
 const router = new Router()
 
-router.get('/jobs/', async ctx => {
-    const status = ctx.params.status
+router.get('/jobs', async ctx => {
     const jobs = await agenda.jobs()
-    
     ctx.body = {
-        jobs
+        ...jobs
     }
 })
 
-router.get('/jobs/:jobs', async ctx => {
-    const jobs_id = ctx.params.jobs
-    const jobs = await agenda.jobs({ _id: jobs_id })
-
-    ctx.body = {
-        jobs
+router.get('/jobs/:jobs', async (ctx, next) => {
+    const body = ctx.request.body
+    if (!ctx.params.jobs) {
+        next()
     }
-})
 
-router.post('/jobs/:jobs/repeatAt', async ctx => {
-    const jobs_id = ctx.params.jobs
-    const time = ctx.request.body
-    const jobs = await agenda.jobs({ _id: jobs_id })
-
-    console.log(jobs)
-    await jobs.repeatAt(time).save()
-
-    ctx.body = {
-        jobs
-    }
-})
-
-router.post('/news/:country', async ctx => {
-    const country = ctx.params.country
-
-    const jobs = await agenda.create('sendNews', { country })
-    await jobs.save()
+    const collection = agenda._collection.collection || agenda._collection;
+    const jobs = await collection.aggregate([
+        {$match: { name: ctx.params.jobs }},
+        {$sort: {
+            nextRunAt: -1,
+            lastRunAt: -1,
+            lastFinishedAt: -1
+        }},
+        {$project: {
+            _id: 0,
+            job: '$$ROOT',
+            nextRunAt: {$ifNull: ['$nextRunAt', 0]},
+            lockedAt: {$ifNull: ['$lockedAt', 0]},
+            lastRunAt: {$ifNull: ['$lastRunAt', 0]},
+            lastFinishedAt: {$ifNull: ['$lastFinishedAt', 0]},
+            failedAt: {$ifNull: ['$failedAt', 0]},
+            repeatInterval: {$ifNull: ['$repeatInterval', 0]}
+        }},
+        {$project: {
+            job: '$job',
+            _id: '$job._id',
+            running: {$and: [
+              '$lastRunAt',
+              {$gt: ['$lastRunAt', '$lastFinishedAt']}
+            ]},
+            scheduled: {$and: [
+              '$nextRunAt',
+              {$gte: ['$nextRunAt', new Date()]}
+            ]},
+            queued: {$and: [
+              '$nextRunAt',
+              {$gte: [new Date(), '$nextRunAt']},
+              {$gte: ['$nextRunAt', '$lastFinishedAt']}
+            ]},
+            completed: {$and: [
+              '$lastFinishedAt',
+              {$gt: ['$lastFinishedAt', '$failedAt']}
+            ]},
+            failed: {$and: [
+              '$lastFinishedAt',
+              '$failedAt',
+              {$eq: ['$lastFinishedAt', '$failedAt']}
+            ]},
+            repeating: {$and: [
+              '$repeatInterval',
+              {$ne: ['$repeatInterval', null]}
+            ]}
+        }},
+    ])
 
     ctx.body = {
         jobs
