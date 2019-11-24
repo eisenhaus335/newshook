@@ -11,13 +11,10 @@ router.get('/jobs', async ctx => {
 
 router.get('/jobs/:jobs', async (ctx, next) => {
     const body = ctx.request.body
-    if (!ctx.params.jobs) {
-        next()
-    }
-    console.log('test')
     const collection = agenda._collection.collection || agenda._collection;
+    console.log(collection)
     const jobs = await collection.aggregate([
-        {$match: { name: ctx.params.jobs }},
+        {$match: preMatch},
         {$sort: {
             nextRunAt: -1,
             lastRunAt: -1,
@@ -37,33 +34,38 @@ router.get('/jobs/:jobs', async (ctx, next) => {
             job: '$job',
             _id: '$job._id',
             running: {$and: [
-              '$lastRunAt',
-              {$gt: ['$lastRunAt', '$lastFinishedAt']}
+                '$lastRunAt',
+                {$gt: ['$lastRunAt', '$lastFinishedAt']}
             ]},
             scheduled: {$and: [
-              '$nextRunAt',
-              {$gte: ['$nextRunAt', new Date()]}
+                '$nextRunAt',
+                {$gte: ['$nextRunAt', new Date()]}
             ]},
             queued: {$and: [
-              '$nextRunAt',
-              {$gte: [new Date(), '$nextRunAt']},
-              {$gte: ['$nextRunAt', '$lastFinishedAt']}
+            '$nextRunAt',
+                {$gte: [new Date(), '$nextRunAt']},
+                {$gte: ['$nextRunAt', '$lastFinishedAt']}
             ]},
             completed: {$and: [
-              '$lastFinishedAt',
-              {$gt: ['$lastFinishedAt', '$failedAt']}
+                '$lastFinishedAt',
+                {$gt: ['$lastFinishedAt', '$failedAt']}
             ]},
             failed: {$and: [
-              '$lastFinishedAt',
-              '$failedAt',
-              {$eq: ['$lastFinishedAt', '$failedAt']}
+                '$lastFinishedAt',
+                '$failedAt',
+                {$eq: ['$lastFinishedAt', '$failedAt']}
             ]},
             repeating: {$and: [
-              '$repeatInterval',
-              {$ne: ['$repeatInterval', null]}
+                '$repeatInterval',
+                {$ne: ['$repeatInterval', null]}
             ]}
         }},
-    ])
+    ]).toArray((err, results) => {
+        if (err) {
+          return callback(err);
+        }
+        callback(null, results);
+    });
 
     ctx.body = {
         jobs
