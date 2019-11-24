@@ -53,12 +53,7 @@ router.get('/jobs/:jobs', async ctx => {
             {$ne: ['$repeatInterval', null]}
             ]}
         }},
-    ]).toArray((err, results) => {
-        if (err) {
-          return callback(err);
-        }
-        callback(null, results);
-    });
+    ])
     ctx.body = jobs_result
 })
 
