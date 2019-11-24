@@ -6,7 +6,7 @@ const router = new Router()
 router.get('/jobs/:jobs', async ctx => {
     const { jobs } = ctx.params
 
-    const collection = agenda._collection.collection || agenda._collection;
+    const collection = agenda._collection.collection
     const jobs_result = collection.aggregate([
         {$match: { name: 'sendNews' }},
         {$sort: {
