@@ -14,7 +14,7 @@ router.get('/jobs/:jobs', async (ctx, next) => {
     const collection = agenda._collection.collection || agenda._collection;
     console.log(collection)
     const jobs = await collection.aggregate([
-        {$match: preMatch},
+        {$match: { name: ctx.params.jobs}},
         {$sort: {
             nextRunAt: -1,
             lastRunAt: -1,
