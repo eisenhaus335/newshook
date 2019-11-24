@@ -9,7 +9,7 @@ router.get('/jobs/:jobs', async ctx => {
 
 router.post('/news/:country', async (ctx, next) => {
     const { country } = ctx.params
-    const body = ctx.body
+    const body = ctx.request.body
     if(!country) next()
 
     const collection = agenda._collection
