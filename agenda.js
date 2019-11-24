@@ -21,7 +21,7 @@ const agenda = new Agenda({
 agenda.define('send news indonesia', async () => {
     const articles = await NewsApi.v2.topHeadlines({
         country: 'id'
-    }).then(news => news.articles.splice(0,4))
+    }).then(news => news.articles.splice(0,5))
     
     console.log(Date.now())
     webhook.send("KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",{
@@ -39,6 +39,7 @@ agenda.define('send news indonesia', async () => {
 });
 
 (async function (){
+    await agenda.purge()
     await agenda.start()
     await agenda.create('send news indonesia').repeatAt('7.00').save()
     await agenda.create('send news indonesia').repeatAt('12.00').save()
