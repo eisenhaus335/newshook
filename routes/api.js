@@ -14,7 +14,7 @@ router.get('/jobs/:jobs', async (ctx, next) => {
     if (!ctx.params.jobs) {
         next()
     }
-
+    console.log('test')
     const collection = agenda._collection.collection || agenda._collection;
     const jobs = await collection.aggregate([
         {$match: { name: ctx.params.jobs }},
