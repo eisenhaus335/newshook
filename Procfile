@@ -1,2 +1,2 @@
-web: node web
+web: node server
 worker: node agenda
