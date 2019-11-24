@@ -14,6 +14,8 @@ app.use(async (ctx, next) => {
     }
 });
 
+const bodyParser = require('koa-bodyparser')
+app.use(bodyParser())
 const indexRoutes = require('./routes')
 app.use(indexRoutes)
 
