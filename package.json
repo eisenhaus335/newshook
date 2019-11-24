@@ -8,6 +8,7 @@
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "mongodb": "^3.3.4",
+    "mongoose": "^5.7.12",
     "newsapi": "^2.4.0"
   }
 }

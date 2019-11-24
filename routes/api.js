@@ -32,4 +32,15 @@ router.post('/jobs/:jobs/repeatAt', async ctx => {
     }
 })
 
+router.post('/news/:country', async ctx => {
+    const country = ctx.params.country
+
+    const jobs = await agenda.create('sendNews', { country })
+    await jobs.save()
+
+    ctx.body = {
+        jobs
+    }
+})
+
 module.exports = router.routes()
