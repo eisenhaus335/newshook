@@ -25,6 +25,7 @@ router.post('/jobs/:jobs/repeatAt', async ctx => {
     const time = ctx.request.body
     const jobs = await agenda.jobs({ _id: jobs_id })
 
+    console.log(jobs)
     await jobs.repeatAt(time).save()
 
     ctx.body = {
