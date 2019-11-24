@@ -14,7 +14,7 @@ agenda.on('sendNews', async jobs => {
         country: data.country
     }).then(news => news.articles.splice(0,5))
     
-    const channel = client.channels.find('name', process.env.CHANNEL)
+    const channel = Client.channels.find('name', process.env.CHANNEL)
     channel.send("KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",{
         embeds: articles.map(article => ({
                 url: article.url,
