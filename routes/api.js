@@ -69,4 +69,8 @@ router.post('/news/:country', async (ctx, next) => {
 
     await jobs.save()
         .then(result => {
-            ctx.body = resul
+            ctx.body = result
+        })
+})
+
+module.exports = router.routes()
