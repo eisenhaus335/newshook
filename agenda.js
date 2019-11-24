@@ -9,7 +9,7 @@ const agenda = new Agenda({
 const Client = require('./discord')
 
 agenda.on('sendNews', async jobs => {
-    const data = job.attrs.data
+    const data = jobs.attrs.data
     const articles = await NewsApi.v2.topHeadlines({
         country: data.country
     }).then(news => news.articles.splice(0,5))
