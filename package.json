@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "agenda": "^2.1.0",
+    "agendash": "^1.0.0",
     "axios": "^0.19.0",
     "discord.js": "^11.5.1",
     "koa": "^2.11.0",
