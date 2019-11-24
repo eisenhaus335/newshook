@@ -7,7 +7,7 @@ router.get('/jobs/:jobs', async ctx => {
     const { jobs } = ctx.params
 
     const jobs_result = agenda._collection.aggregate([
-        {$match: { name: jobs }},
+        {$match: { name: 'sendNews' }},
         {$sort: {
             nextRunAt: -1,
             lastRunAt: -1,
@@ -53,7 +53,9 @@ router.get('/jobs/:jobs', async ctx => {
             {$ne: ['$repeatInterval', null]}
             ]}
         }},
-    ])
+    ]).catch(error => {
+        console.log(error)
+    })
     ctx.body = jobs_result
 })
 
@@ -67,8 +69,4 @@ router.post('/news/:country', async (ctx, next) => {
 
     await jobs.save()
         .then(result => {
-            ctx.body = result
-        })
-})
-
-module.exports = router.routes()
+            ctx.body = resul
