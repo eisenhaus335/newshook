@@ -9,13 +9,13 @@ const agenda = new Agenda({
 const Client = require('./discord')
 
 agenda.on('sendNews', async jobs => {
-    const data = jobs.attrs.data
+    const {country, channel_id } = jobs.attrs.data
     const articles = await NewsApi.v2.topHeadlines({
-        country: data.country
+        country
     }).then(news => news.articles.splice(0,5))
     
-    const channel = Client.channels.find('name', process.env.CHANNEL)
-    channel.send("KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",{
+    const channels = Client.channels.get(channel_id)
+    channels.send("KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",{
         embeds: articles.map(article => ({
                 url: article.url,
                 thumbnail: {
