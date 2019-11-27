@@ -25,7 +25,7 @@ agenda.define('send news indonesia', async () => {
     
     console.log(Date.now())
     webhook.send("KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",{
-        embed: articles.map(article => ({
+        embeds: articles.map(article => ({
                 url: article.url,
                 thumbnail: {
                     width: 400,
