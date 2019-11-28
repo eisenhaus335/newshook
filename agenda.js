@@ -45,6 +45,6 @@ agenda.define('send news indonesia', async () => {
     await agenda.create('send news indonesia').repeatAt('at 7.00').save()
     await agenda.create('send news indonesia').repeatAt('at 12.00').save()
     await agenda.create('send news indonesia').repeatAt('at 16.00').save()
-    await agenda.create('send news indonesia').repeatAt('at 20.00pm').save()
+    await agenda.create('send news indonesia').repeatAt('at 20.00').save()
     await webhook.send('NewsHook READY!')
 })()
