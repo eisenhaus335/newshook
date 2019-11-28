@@ -42,9 +42,9 @@ agenda.define('send news indonesia', async () => {
 
 (async function (){
     await agenda.start()
-    await agenda.create('send news indonesia').repeatAt('at 7.00am').save()
-    await agenda.create('send news indonesia').repeatAt('at 12.00pm').save()
-    await agenda.create('send news indonesia').repeatAt('at 4.00pm').save()
-    await agenda.create('send news indonesia').repeatAt('at 8.00pm').save()
+    await agenda.create('send news indonesia').repeatAt('at 7.00').save()
+    await agenda.create('send news indonesia').repeatAt('at 12.00').save()
+    await agenda.create('send news indonesia').repeatAt('at 16.00').save()
+    await agenda.create('send news indonesia').repeatAt('at 20.00pm').save()
     await webhook.send('NewsHook READY!')
 })()
