@@ -3,7 +3,6 @@ console.log('Prepare to setup')
 const Agenda = require('agenda')
 const { MongoClient } = require('mongodb');
 
-
 const discord = require('discord.js')
 const webhook = new discord.WebhookClient(process.env.ID, process.env.TOKEN)
 
