@@ -22,7 +22,7 @@ agenda.define('send news indonesia', async () => {
         country: 'id'
     }).then(news => news.articles.splice(0,5))
     
-    console.log(Date.now())
+    console.log("job started");
     webhook.send("KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",{
         embeds: articles.map(article => ({
                 url: article.url,
@@ -40,6 +40,6 @@ agenda.define('send news indonesia', async () => {
 });
 
 (async function (){
-    await agenda.start()
-    await webhook.send('NewsHook READY!')
+    console.log("application started");
+    await agenda.start();
 })()
