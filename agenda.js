@@ -15,27 +15,38 @@ const agenda = new Agenda({
         collection: 'jobs'
     },
     processEvery: '30 seconds'
-})
+});
+
+const blacklistedSources = ["tribun"]
 
 agenda.define('send news indonesia', async () => {
     const articles = await NewsApi.v2.topHeadlines({
         country: 'id'
-    }).then(news => news.articles.splice(0,5))
+    }).then(news => news.articles)
     
     console.log("job started");
+    const embeds = articles.map(article => ({
+            url: article.url,
+            thumbnail: {
+                width: 400,
+                height: 300,
+                url: article.urlToImage,
+            },
+            title: article.title,
+            description: article.description,
+            timestamp: article.publishedAt
+        })).filter(function(article){
+            blacklistedSources.forEach(source => {
+                if (article.url.includes(source)){
+                    return false;
+                }
+            });
+            return true;
+        }).slice(0,5);
+    console.log(JSON.stringify(embeds));
+    
     webhook.send("KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",{
-        embeds: articles.map(article => ({
-                url: article.url,
-                thumbnail: {
-                    width: 400,
-                    height: 300,
-                    url: article.urlToImage,
-                },
-                title: article.title,
-                description: article.description,
-                timestamp: article.publishedAt
-            })
-        )
+        embeds: embeds
     })
 });
 
