@@ -17,7 +17,7 @@ const agenda = new Agenda({
     processEvery: '30 seconds'
 });
 
-const blacklistedSources = ["tribun"]
+const blacklistedSources = ["Tribunnews.com"]
 
 agenda.define('send news indonesia', async () => {
     const articles = await NewsApi.v2.topHeadlines({
@@ -37,7 +37,7 @@ agenda.define('send news indonesia', async () => {
             timestamp: article.publishedAt
         })).filter(function(article){
             blacklistedSources.forEach(source => {
-                if (article.url.includes(source)){
+                if (article.source.name.includes(source)){
                     return false;
                 }
             });
