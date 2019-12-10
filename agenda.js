@@ -25,7 +25,15 @@ agenda.define('send news indonesia', async () => {
     }).then(news => news.articles)
     
     console.log("job started");
-    const embeds = articles.map(article => ({
+    const embeds = articles.filter(function(article){
+            var isBlacklisted = false;
+            blacklistedSources.forEach(source => {
+                if (article.source.name.includes(source)){
+                    isBlacklisted = true;
+                }
+            });
+            return !isBlacklisted;
+        }).map(article => ({
             url: article.url,
             thumbnail: {
                 width: 400,
@@ -35,14 +43,7 @@ agenda.define('send news indonesia', async () => {
             title: article.title,
             description: article.description,
             timestamp: article.publishedAt
-        })).filter(function(article){
-            blacklistedSources.forEach(source => {
-                if (article.source.name.includes(source)){
-                    return false;
-                }
-            });
-            return true;
-        }).slice(0,5);
+        })).slice(0,5);
     console.log(JSON.stringify(embeds));
     
     webhook.send("KORAN KORAN!\nAmbil ini, tambahlah ilmu pengetahuan",{
